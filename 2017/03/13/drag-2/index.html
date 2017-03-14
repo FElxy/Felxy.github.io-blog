@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="拖放," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -87,47 +87,37 @@
 
 
 
-<meta name="description" content="2016.10.07 明珠湖
-拖放流程用户能够将一个可拖动元素移动到另一个可放置元素中，释放鼠标来应用这些改变。
-拖放总的来说有三步: 鼠标按下、移动和释放
-每一步对应一个关键点
+<meta name="description" content="2017.02.25 黄山
+原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
+所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
 
-拖放元素，设置属性draggable=&amp;quot;true&amp;quot;使其可拖动
-拖拽移动过程
-拖拽释放区域
-
-拖放事件拖放过程中会触发多个事件，这些事件会作用于两种对象元素上，一种是被拖动的元素，另外一种是放置目标元">
+鼠标按下，计算鼠标与被拖动元素偏移值
+鼠标移动，更新被拖动">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拖放（一）">
-<meta property="og:url" content="https://felxy.github.io/2017/03/12/drag-1/index.html">
+<meta property="og:title" content="拖放（二）">
+<meta property="og:url" content="https://felxy.github.io/2017/03/13/drag-2/index.html">
 <meta property="og:site_name" content="漫溯">
-<meta property="og:description" content="2016.10.07 明珠湖
-拖放流程用户能够将一个可拖动元素移动到另一个可放置元素中，释放鼠标来应用这些改变。
-拖放总的来说有三步: 鼠标按下、移动和释放
-每一步对应一个关键点
+<meta property="og:description" content="2017.02.25 黄山
+原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
+所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
 
-拖放元素，设置属性draggable=&amp;quot;true&amp;quot;使其可拖动
-拖拽移动过程
-拖拽释放区域
-
-拖放事件拖放过程中会触发多个事件，这些事件会作用于两种对象元素上，一种是被拖动的元素，另外一种是放置目标元">
-<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170312-caption.jpg">
-<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170312-step.png">
-<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170312-console.png">
-<meta property="og:updated_time" content="2017-03-12T09:23:58.000Z">
+鼠标按下，计算鼠标与被拖动元素偏移值
+鼠标移动，更新被拖动">
+<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg">
+<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170313-offset.png?170313">
+<meta property="og:updated_time" content="2017-03-14T14:02:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拖放（一）">
-<meta name="twitter:description" content="2016.10.07 明珠湖
-拖放流程用户能够将一个可拖动元素移动到另一个可放置元素中，释放鼠标来应用这些改变。
-拖放总的来说有三步: 鼠标按下、移动和释放
-每一步对应一个关键点
+<meta name="twitter:title" content="拖放（二）">
+<meta name="twitter:description" content="2017.02.25 黄山
+原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
+所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
 
-拖放元素，设置属性draggable=&amp;quot;true&amp;quot;使其可拖动
-拖拽移动过程
-拖拽释放区域
-
-拖放事件拖放过程中会触发多个事件，这些事件会作用于两种对象元素上，一种是被拖动的元素，另外一种是放置目标元">
-<meta name="twitter:image" content="http://omoxed4yh.bkt.clouddn.com/170312-caption.jpg">
+鼠标按下，计算鼠标与被拖动元素偏移值
+鼠标移动，更新被拖动">
+<meta name="twitter:image" content="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg">
 
 
 
@@ -155,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="https://felxy.github.io/2017/03/12/drag-1/"/>
+  <link rel="canonical" href="https://felxy.github.io/2017/03/13/drag-2/"/>
 
 
 
 
 
-  <title> 拖放（一） | 漫溯 </title>
+  <title> 拖放（二） | 漫溯 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +270,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/03/12/drag-1/">
+    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/03/13/drag-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain">
@@ -301,7 +291,7 @@
             
             
               
-                拖放（一）
+                拖放（二）
               
             
           </h1>
@@ -316,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-12T14:56:25+08:00">
-                2017-03-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T22:39:02+08:00">
+                2017-03-13
               </time>
             
 
@@ -352,85 +342,36 @@
       
 
       
-        <p><img src="http://omoxed4yh.bkt.clouddn.com/170312-caption.jpg" alt="image"><br><em>2016.10.07 明珠湖</em></p>
-<h2 id="拖放流程"><a href="#拖放流程" class="headerlink" title="拖放流程"></a>拖放流程</h2><p>用户能够将一个可拖动元素移动到另一个可放置元素中，释放鼠标来应用这些改变。</p>
-<p>拖放总的来说有三步: 鼠标按下、移动和释放</p>
-<p><img src="http://omoxed4yh.bkt.clouddn.com/170312-step.png" alt="image"><br>每一步对应一个关键点</p>
+        <p><img src="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg" alt="image"><br><em>2017.02.25 黄山</em></p>
+<p>原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过<a href="http://caniuse.com/#search=drag%20and%20drop" target="_blank" rel="external">caniuse</a>网站看到。</p>
+<h2 id="拖放过程"><a href="#拖放过程" class="headerlink" title="拖放过程"></a>拖放过程</h2><p>根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。</p>
+<p>所以，可以使用鼠标操作的对应事件<code>mousedown, mousemove, mouseup</code>实现拖放</p>
 <ol>
-<li>拖放元素，设置属性<code>draggable=&quot;true&quot;</code>使其可拖动</li>
-<li>拖拽移动过程</li>
-<li>拖拽释放区域</li>
+<li>鼠标按下，计算鼠标与被拖动元素偏移值</li>
+<li>鼠标移动，更新被拖动元素的坐标</li>
+<li>鼠标释放，设置元素为不可拖动</li>
 </ol>
-<h2 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h2><p>拖放过程中会触发多个事件，这些事件会作用于两种对象元素上，一种是<strong>被拖动的元素</strong>，另外一种是<strong>放置目标元素</strong>。<br>拖动期间像<code>mousemove</code>等事件均不会被触发。如果由本地向浏览器拖放文件，<code>dragstart</code>和<code>dragend</code>也不会被触发。</p>
-<table>
-<thead>
-<tr>
-<th>事件</th>
-<th>对象</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>dragstart</td>
-<td>src</td>
-<td>元素开始被拖动的时候触发</td>
-</tr>
-<tr>
-<td>dragenter</td>
-<td>target</td>
-<td>拖动元素鼠标进入到目标区域时触发</td>
-</tr>
-<tr>
-<td>dragover</td>
-<td>target</td>
-<td>拖动元素在目标区域移动时触发</td>
-</tr>
-<tr>
-<td>dragleave</td>
-<td>target</td>
-<td>拖动元素鼠标离开目标区域时触发</td>
-</tr>
-<tr>
-<td>drag</td>
-<td>src</td>
-<td>拖放过程中在被拖动元素上连续触发</td>
-</tr>
-<tr>
-<td>drop</td>
-<td>target</td>
-<td>释放时触发，目标元素</td>
-</tr>
-<tr>
-<td>dragend</td>
-<td>src</td>
-<td>释放时触发，被拖动元素</td>
-</tr>
-</tbody>
-</table>
-<p><strong>在默认的情况下，浏览器会阻止所有的拖放操作，所以在进入到目标区域时需要阻止浏览器的默认行为。也就是在<code>dragenter</code>和<code>dragover</code>的事件中取消浏览器默认行为，使元素可以被拖放。</strong></p>
-<h2 id="拖放数据"><a href="#拖放数据" class="headerlink" title="拖放数据"></a>拖放数据</h2><p>拖放事件初始化后会生成一个<code>dataTransfer</code>对象，其中保存了所有拖放数据。</p>
-<p>通过浏览器控制台打印这个对象，可以看到有如下属性和方法：<br><img src="http://omoxed4yh.bkt.clouddn.com/170312-console.png" alt="image"><br>其中</p>
+<p><img src="http://omoxed4yh.bkt.clouddn.com/170313-offset.png?170313" alt="image"></p>
+<p>这里最关键的地方就是计算鼠标按下之处与被拖动元素的偏移，这样在无论鼠标移动到哪里，元素的位置也就是确定的，二者可以由如下方式获取</p>
 <ul>
-<li><code>effectAllowed</code>:限定可操作类型，取值<code>[copy,move,link,copyLink,copyMove,limkMove,all, none,uninitialized]</code></li>
-<li><code>dropEffect</code>: 设置光标类型，取值是<code>effectAllowed</code>中设置的，但是只有<code>[copy,move,link,none]</code>可被设定</li>
-<li><code>files</code>:读取可用的本地文件列表</li>
-<li><code>items</code>:保存了<code>DataTransferItemList</code>对象</li>
-<li><code>types</code>:保存<code>DataTransfer</code>设置的数据类型</li>
+<li>鼠标坐标：<code>clientX, clientY</code>与<code>pageX, pageY</code>都可以用来获取鼠标当前页面的坐标，但是IE8及以下的浏览器并不支持<code>pageX, pageY</code>。</li>
+<li>元素坐标：被拖动的元素定位需要被设置为<code>absolute</code>，其父元素对应设置为相对定位，那么可以使用<code>offsetLeft, offsetTop</code>获取对应位置。</li>
 </ul>
-<p>方法</p>
+<p>二者之差确定偏移值offset<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">box.onmousedown = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> e = e || <span class="built_in">window</span>.event;</div><div class="line">    offset.x = e.clientX - <span class="keyword">this</span>.offsetLeft;</div><div class="line">    offset.y = e.clientY - <span class="keyword">this</span>.offsetTop;</div><div class="line">    isDraging = <span class="literal">true</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>移动过程中就可以把获取到的鼠标坐标减去偏移值确定元素具体位置<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> e = e || <span class="built_in">window</span>.event;</div><div class="line">    <span class="keyword">if</span> (isDraging) &#123;</div><div class="line">        box.style.left = e.clientX - offset.x + <span class="string">'px'</span>;</div><div class="line">        box.style.top = e.clientY - offset.y + <span class="string">'px'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="拖放范围限定"><a href="#拖放范围限定" class="headerlink" title="拖放范围限定"></a>拖放范围限定</h2><p>实际操作过程中并不希望元素满屏幕的乱跑，需要把它关在笼子里，因此需要限制它的活动范围。</p>
+<p>父元素的四条边作为元素移动的边界值，转换成被拖拽元素的坐标值就是：</p>
 <ul>
-<li><code>setData(format, data)</code> :在<code>dataTransfer</code> 中设置数据，常见类型<a href="https://developer.mozilla.org/zh-CN/docs/DragDrop/Recommended_Drag_Types" target="_blank" rel="external">Drag Types</a></li>
-<li><code>getData(format)</code>: 获取设置的对应格式数据</li>
-<li><code>clearData(format)</code>: 清除指定格式数据</li>
-<li><code>setDragImage(image, xOffset, yOffset)</code>:设置拖动反馈图片</li>
+<li><code>left, top</code>值不能小于0</li>
+<li>元素<code>left</code>值与<code>width</code>值的<strong>和</strong>不大于父元素宽度</li>
+<li>元素<code>top</code>值与<code>height</code>值的<strong>和</strong>不大于父元素的高度</li>
 </ul>
-<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><p>知道了上面的概念之后，就可以进行实际的操作了。</p>
-
-<script async src="//jsrun.net/AjpKp/embed/all/light/"></script>
+<p>经过改写的mousemove函数为<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> e = e || <span class="built_in">window</span>.event;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> maxX = wrap.clientWidth - box.offsetWidth;</div><div class="line">    <span class="keyword">var</span> maxY = wrap.clientHeight - box.offsetHeight;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> moveX = <span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">0</span>, (e.clientX - offset.x)), maxX);</div><div class="line">    <span class="keyword">var</span> moveY = <span class="built_in">Math</span>.min(<span class="built_in">Math</span>.max(<span class="number">0</span>, (e.clientY - offset.y)), maxY);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (isDraging) &#123;</div><div class="line">	    box.style.left = moveX + <span class="string">'px'</span>;</div><div class="line">	    box.style.top = moveY + <span class="string">'px'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="拖放实例"><a href="#拖放实例" class="headerlink" title="拖放实例"></a>拖放实例</h2>
+<script async src="//jsrun.net/tBpKp/embed/all/light/"></script>
 
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/DragDrop/Drag_and_Drop" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/DragDrop/Drag_and_Drop</a></p>
+<p><a href="http://www.imooc.com/learn/60" target="_blank" rel="external">http://www.imooc.com/learn/60</a></p>
 </blockquote>
 
       
@@ -453,12 +394,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/拖放/" rel="tag"># 拖放</a>
-          
-        </div>
-      
 
       
         
@@ -468,15 +403,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/03/12/drag-1/" rel="next" title="拖放（一）">
+                <i class="fa fa-chevron-left"></i> 拖放（一）
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/13/drag-2/" rel="prev" title="拖放（二）">
-                拖放（二） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放流程"><span class="nav-number">1.</span> <span class="nav-text">拖放流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放事件"><span class="nav-number">2.</span> <span class="nav-text">拖放事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放数据"><span class="nav-number">3.</span> <span class="nav-text">拖放数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举个栗子"><span class="nav-number">4.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放过程"><span class="nav-number">1.</span> <span class="nav-text">拖放过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放范围限定"><span class="nav-number">2.</span> <span class="nav-text">拖放范围限定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖放实例"><span class="nav-number">3.</span> <span class="nav-text">拖放实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
