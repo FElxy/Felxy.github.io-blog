@@ -96,7 +96,7 @@
 序列重排
 拖放">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拖放（三）：可拖放交换的widget">
+<meta property="og:title" content="拖放（三）：可拖放交换的组件块">
 <meta property="og:url" content="https://felxy.github.io/2017/03/20/drag-3/index.html">
 <meta property="og:site_name" content="漫溯">
 <meta property="og:description" content="可拖放交换位置的widget组件拖放排序可被应用的地方非常多，像标签页的排序，widget组件的互换位置，或者任意摆放的图片墙等等。
@@ -107,9 +107,9 @@
 距离检测
 序列重排
 拖放">
-<meta property="og:updated_time" content="2017-03-26T05:07:27.000Z">
+<meta property="og:updated_time" content="2017-03-26T05:11:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拖放（三）：可拖放交换的widget">
+<meta name="twitter:title" content="拖放（三）：可拖放交换的组件块">
 <meta name="twitter:description" content="可拖放交换位置的widget组件拖放排序可被应用的地方非常多，像标签页的排序，widget组件的互换位置，或者任意摆放的图片墙等等。
 从过程上考虑，首先要能把目标元素给拖动起来(⊙_⊙)，之后检测与其他元素之间的距离执行交换，最后来释放掉目标元素。
 如果是使用鼠标函数拖放的话，需要将可拖动的对象设定为绝对定位，这样能更方便的操作。因此基本上只要考虑以下几方面：
@@ -151,7 +151,7 @@
 
 
 
-  <title> 拖放（三）：可拖放交换的widget | 漫溯 </title>
+  <title> 拖放（三）：可拖放交换的组件块 | 漫溯 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
             
             
               
-                拖放（三）：可拖放交换的widget
+                拖放（三）：可拖放交换的组件块
               
             
           </h1>
@@ -351,6 +351,7 @@
 <li>序列重排</li>
 <li>拖放函数</li>
 </ul>
+<a id="more"></a>
 <p>按照上面的步骤，先来个<strong>低配版</strong>的拖放排序</p>
 <h3 id="位置重绘"><a href="#位置重绘" class="headerlink" title="位置重绘"></a>位置重绘</h3><p>把获取到的元素位置由相对定位转换为绝对定位，同时把当前位置的<code>left,top</code>值保存在<code>position</code>变量中，方便后面元素交换时使用。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> drag = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">data</span>: &#123;</div><div class="line">            <span class="attr">wrap</span>: <span class="string">''</span>,</div><div class="line">            <span class="attr">eles</span>: <span class="string">''</span>,</div><div class="line">            <span class="attr">position</span>: []</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">init</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> $wrap = $(obj.wrap);</div><div class="line">            <span class="keyword">var</span> $eles = $wrap.find(obj.lists);</div><div class="line"></div><div class="line">            <span class="keyword">this</span>.data.wrap = $wrap;</div><div class="line">            <span class="keyword">this</span>.data.eles = $eles;</div><div class="line"></div><div class="line">            <span class="keyword">this</span>.repaint();</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">repaint</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> self = <span class="keyword">this</span>;</div><div class="line">            <span class="keyword">var</span> $eles = <span class="keyword">this</span>.data.eles;</div><div class="line"></div><div class="line">            $eles.each(<span class="function"><span class="keyword">function</span>(<span class="params">index, el</span>) </span>&#123;</div><div class="line"></div><div class="line">                $(<span class="keyword">this</span>).css(&#123;</div><div class="line">                    <span class="string">'left'</span>: $(<span class="keyword">this</span>).position().left,</div><div class="line">                    <span class="string">'top'</span>: $(<span class="keyword">this</span>).position().top</div><div class="line">                &#125;);</div><div class="line"></div><div class="line">                <span class="keyword">this</span>.seq = $(<span class="keyword">this</span>).index();</div><div class="line"></div><div class="line">                self.data.position.push($(<span class="keyword">this</span>).position())</div><div class="line">            &#125;);</div><div class="line">            $eles.css(<span class="string">'position'</span>, <span class="string">'absolute'</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;())</div><div class="line"></div><div class="line">drag.init(&#123;</div><div class="line">    <span class="attr">wrap</span>: <span class="string">'#drag'</span>,</div><div class="line">    <span class="attr">lists</span>: <span class="string">'.box'</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
 <h3 id="距离检测"><a href="#距离检测" class="headerlink" title="距离检测"></a>距离检测</h3><p>距离检测的方式有很多种</p>
