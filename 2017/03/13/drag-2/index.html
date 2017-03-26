@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="拖放," />
 
 
 
@@ -89,34 +89,22 @@
 
 <meta name="description" content="2017.02.25 黄山
 原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
-拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
-所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
-
-鼠标按下，计算鼠标与被拖动元素偏移值
-鼠标移动，更新被拖动">
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拖放（二）">
+<meta property="og:title" content="拖放（二）：鼠标事件实现拖放">
 <meta property="og:url" content="https://felxy.github.io/2017/03/13/drag-2/index.html">
 <meta property="og:site_name" content="漫溯">
 <meta property="og:description" content="2017.02.25 黄山
 原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
-拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
-所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
-
-鼠标按下，计算鼠标与被拖动元素偏移值
-鼠标移动，更新被拖动">
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。">
 <meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg">
 <meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170313-offset.png?170313">
-<meta property="og:updated_time" content="2017-03-14T14:02:16.000Z">
+<meta property="og:updated_time" content="2017-03-26T03:37:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拖放（二）">
+<meta name="twitter:title" content="拖放（二）：鼠标事件实现拖放">
 <meta name="twitter:description" content="2017.02.25 黄山
 原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过caniuse网站看到。
-拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。
-所以，可以使用鼠标操作的对应事件mousedown, mousemove, mouseup实现拖放
-
-鼠标按下，计算鼠标与被拖动元素偏移值
-鼠标移动，更新被拖动">
+拖放过程根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。">
 <meta name="twitter:image" content="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg">
 
 
@@ -151,7 +139,7 @@
 
 
 
-  <title> 拖放（二） | 漫溯 </title>
+  <title> 拖放（二）：鼠标事件实现拖放 | 漫溯 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +279,7 @@
             
             
               
-                拖放（二）
+                拖放（二）：鼠标事件实现拖放
               
             
           </h1>
@@ -344,8 +332,7 @@
       
         <p><img src="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg" alt="image"><br><em>2017.02.25 黄山</em></p>
 <p>原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过<a href="http://caniuse.com/#search=drag%20and%20drop" target="_blank" rel="external">caniuse</a>网站看到。</p>
-<h2 id="拖放过程"><a href="#拖放过程" class="headerlink" title="拖放过程"></a>拖放过程</h2><p>根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。</p>
-<p>所以，可以使用鼠标操作的对应事件<code>mousedown, mousemove, mouseup</code>实现拖放</p>
+<h2 id="拖放过程"><a href="#拖放过程" class="headerlink" title="拖放过程"></a>拖放过程</h2><p>根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。<br><a id="more"></a><br>所以，可以使用鼠标操作的对应事件<code>mousedown, mousemove, mouseup</code>实现拖放</p>
 <ol>
 <li>鼠标按下，计算鼠标与被拖动元素偏移值</li>
 <li>鼠标移动，更新被拖动元素的坐标</li>
@@ -391,8 +378,20 @@
       
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/拖放/" rel="tag"># 拖放</a>
+          
+        </div>
       
 
       
@@ -403,8 +402,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/12/drag-1/" rel="next" title="拖放（一）">
-                <i class="fa fa-chevron-left"></i> 拖放（一）
+              <a href="/2017/03/12/drag-1/" rel="next" title="拖放（一）：原生drag and drop">
+                <i class="fa fa-chevron-left"></i> 拖放（一）：原生drag and drop
               </a>
             
           </div>
@@ -412,6 +411,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/20/drag-3/" rel="prev" title="拖放（三）：可拖放交换的widget">
+                拖放（三）：可拖放交换的widget <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -483,7 +486,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,6 +620,8 @@
   
 
 
+  
+
 
 
   
@@ -636,6 +641,9 @@
 
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
   
