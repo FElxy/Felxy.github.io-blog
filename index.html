@@ -250,6 +250,138 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/04/13/socket-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="漫溯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/13/socket-1/" itemprop="url">
+                  WebSocket的学习及认识
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-13T13:59:59+08:00">
+                2017-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Web应用的一般信息交换过程是客户端通过浏览器发出一个请求，服务器端接收和处理收到的请求并返回，然后客户端在浏览器中呈现出内容。也即是说一个request对应一个response请求，只有客户端主动发起才会获得服务端的返回信息，而服务端无法主动发送。</p>
+<p>可是有什么用呢？</p>
+<p>在一些场景里，我们有时会对应用的实时性要求比较高，类似于股票信息，设备监控，聊天室等等，这些都需要服务器能够主动的推送信息到客户端。使用传统的技术来解决这些问题的方案主要有轮询和comet，</p>
+<ul>
+<li>轮询是使用定时器周期性的向服务端发送请求，但是同样也会带来问题，首要的是如果服务器未更新信息而频繁的发送请求会增加服务器压力并造成资源的浪费，所以这是一种很低效的方式。</li>
+<li>comet也是一种轮询，只是在服务器没有信息返回的时候会保持一段时间，直到数据、状态改变或者时间过期，通过这种机制来减少无效的客户端和服务器间的交互，但在比较频繁的交互过程里，这种方式并没有本质上的改变。</li>
+</ul>
+<p>HTML5 WebSocket的推出让浏览器和服务器之间可以建立无限制的通信，任何一方都可以主动发消息给对方。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/13/socket-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/03/20/drag-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -459,7 +591,8 @@
 
       
         
-          <p><img src="http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg" alt="image"><br><em>2017.02.25 黄山</em></p>
+          <!-- ![image](http://omoxed4yh.bkt.clouddn.com/170313-caption.jpg)
+*2017.02.25 黄山* -->
 <p>原生的拖放事件（drag and drop）属于HTML5的接口，对它的兼容性可以通过<a href="http://caniuse.com/#search=drag%20and%20drop">caniuse</a>网站看到。</p>
 <h2 id="拖放过程"><a href="#拖放过程" class="headerlink" title="拖放过程"></a>拖放过程</h2><p>根据拖放的过程来考虑，拖放的效果其实是实现元素对鼠标的跟随，将鼠标的坐标位移设置到元素上。<br>
           <!--noindex-->
@@ -586,7 +719,8 @@
 
       
         
-          <p><img src="http://omoxed4yh.bkt.clouddn.com/170312-caption.jpg" alt="image"><br><em>2016.10.07 明珠湖</em></p>
+          <!-- ![image](http://omoxed4yh.bkt.clouddn.com/170312-caption.jpg)
+*2016.10.07 明珠湖* -->
 <h2 id="拖放流程"><a href="#拖放流程" class="headerlink" title="拖放流程"></a>拖放流程</h2><p>用户能够将一个可拖动元素移动到另一个可放置元素中，释放鼠标来应用这些改变。</p>
 <p>拖放总的来说有三步: 鼠标按下、移动和释放</p>
 <p><img src="http://omoxed4yh.bkt.clouddn.com/170312-step.png" alt="image"><br>
@@ -674,7 +808,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -696,7 +830,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
