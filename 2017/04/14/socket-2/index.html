@@ -1,0 +1,723 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="websocket," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="因为大多数的应用实例都是聊天室，在这个基础上做个拓展，建立一个问答形式的应用。主要规则就是提出问题，并且问题必须是可以用“是”或者“不是”来回答的。
+服务端提问和回答的人各有一个就足够了，所以这个问答聊天室应该是划分为多个房间。房间作为独立的一个功能，可以从业务逻辑中分离出来，所以在组件中新建一个room的模块123456var Room = function() &amp;#123;    this.u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSocket的应用实例">
+<meta property="og:url" content="https://felxy.github.io/2017/04/14/socket-2/index.html">
+<meta property="og:site_name" content="漫溯">
+<meta property="og:description" content="因为大多数的应用实例都是聊天室，在这个基础上做个拓展，建立一个问答形式的应用。主要规则就是提出问题，并且问题必须是可以用“是”或者“不是”来回答的。
+服务端提问和回答的人各有一个就足够了，所以这个问答聊天室应该是划分为多个房间。房间作为独立的一个功能，可以从业务逻辑中分离出来，所以在组件中新建一个room的模块123456var Room = function() &amp;#123;    this.u">
+<meta property="og:updated_time" content="2017-04-23T09:32:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebSocket的应用实例">
+<meta name="twitter:description" content="因为大多数的应用实例都是聊天室，在这个基础上做个拓展，建立一个问答形式的应用。主要规则就是提出问题，并且问题必须是可以用“是”或者“不是”来回答的。
+服务端提问和回答的人各有一个就足够了，所以这个问答聊天室应该是划分为多个房间。房间作为独立的一个功能，可以从业务逻辑中分离出来，所以在组件中新建一个room的模块123456var Room = function() &amp;#123;    this.u">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://felxy.github.io/2017/04/14/socket-2/"/>
+
+
+
+
+
+  <title> WebSocket的应用实例 | 漫溯 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">漫溯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/04/14/socket-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="漫溯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                WebSocket的应用实例
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-14T16:39:13+08:00">
+                2017-04-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>因为大多数的应用实例都是聊天室，在这个基础上做个拓展，建立一个问答形式的应用。主要规则就是提出问题，并且问题必须是可以用“是”或者“不是”来回答的。</p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>提问和回答的人各有一个就足够了，所以这个问答聊天室应该是划分为多个房间。房间作为独立的一个功能，可以从业务逻辑中分离出来，所以在组件中新建一个room的模块<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Room = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.users = []</div><div class="line">    <span class="keyword">this</span>.ques = []</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = Room</div></pre></td></tr></table></figure></p>
+<p>房间的功能应该包括了：</p>
+<ul>
+<li>加入用户</li>
+<li>移除用户</li>
+<li>给房间中所有用户发送消息</li>
+<li>添加问题</li>
+<li>更新问题答案</li>
+<li>其他</li>
+</ul>
+<a id="more"></a>
+<p>为Room原型添加方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">Room.prototype = &#123;</div><div class="line">    <span class="attr">addUser</span>: <span class="function"><span class="keyword">function</span>(<span class="params">id</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.users.indexOf(id) !== <span class="number">-1</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (!!id) &#123;</div><div class="line">            <span class="keyword">this</span>.users.push(id)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">addQues</span>: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.ques.length &lt;= <span class="number">20</span>) &#123;</div><div class="line">            <span class="keyword">this</span>.ques.push(obj)</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">getQuesLen</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    	<span class="keyword">return</span> <span class="keyword">this</span>.ques.length</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">addAns</span>: <span class="function"><span class="keyword">function</span>(<span class="params">index, ans</span>) </span>&#123;</div><div class="line">    	<span class="keyword">this</span>.ques[index].a = ans</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">clear</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.users.length = <span class="number">0</span></div><div class="line">        <span class="keyword">this</span>.ques.length = <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Room完成后就可以在main.js中作为模块导入，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Room = <span class="built_in">require</span>(<span class="string">'./component/room'</span>)</div></pre></td></tr></table></figure></p>
+<p>除此之外，对于每个新创建的房间都需要保存它的名称和实例，因此再添加<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> playload = &#123;&#125;,</div><div class="line">    rooms = &#123;&#125;;</div></pre></td></tr></table></figure></p>
+<p>准备工作做好了之后，接下来就是如何使用了</p>
+<p>在每个用户连接的时候保存用户的基本信息以及ws实例，为了唯一的识别用户，因此引入uuid<br>使用npm install uuid安装后，在main.js中引入<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> uuidV4 = <span class="built_in">require</span>(<span class="string">'uuid/v4'</span>)</div></pre></td></tr></table></figure></p>
+<p>每个用户连接的时候为其分配一个标识uuid作为key保存在playload中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">wss.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ws</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> uuid = uuidV4();</div><div class="line">    <span class="keyword">var</span> obj = &#123;</div><div class="line">        <span class="attr">type</span>: <span class="string">'init'</span>,</div><div class="line">        <span class="attr">id</span>: uuid,</div><div class="line">        <span class="attr">role</span>: <span class="number">0</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ws.send(<span class="built_in">JSON</span>.stringify(obj))</div><div class="line"></div><div class="line">    obj.ws = ws;</div><div class="line"></div><div class="line">    playload[uuid] = obj;</div><div class="line"></div><div class="line">    ws.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line"></div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'received: %s'</span>, message)</div><div class="line"></div><div class="line">        msgParse(message)</div><div class="line"></div><div class="line">    &#125;)</div><div class="line">    ws.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'close'</span>)</div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>相当于是用户在第一次连接的时候获取身份id，以后在每次请求的时候都带上自己的信息；房间号获取的方式是由客户端传递过来的，因为用户可以选择加入一个房间或者创建一个房间。</p>
+<p>房间需要有通知消息的功能，因此再添加了单独和房间的发送通知方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">wss.roomNotify = <span class="function"><span class="keyword">function</span>(<span class="params">data, room</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> msg = <span class="built_in">JSON</span>.stringify(data)</div><div class="line">    <span class="keyword">var</span> users = rooms[room].getUser()</div><div class="line">    users.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> playload[item] !== <span class="string">'undefined'</span>) &#123;</div><div class="line">            playload[item].ws.send(data)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">&#125;</div><div class="line">wss.singleNotify = <span class="function"><span class="keyword">function</span>(<span class="params">data, uuid</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> msg = <span class="built_in">JSON</span>.stringify(data)</div><div class="line">    playload[uuid].ws.send(msg)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>处理好了基本功能后就可以对客户端返回的信息进行解析了<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">msgParse</span>(<span class="params">res</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> data = <span class="built_in">JSON</span>.parse(res)</div><div class="line">    <span class="keyword">var</span> room = data.room;</div><div class="line">    <span class="keyword">var</span> uuid = data.id;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> oRoom = rooms[room]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (data.type == <span class="string">'init'</span>) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> oRoom == <span class="string">'undefined'</span>) &#123;</div><div class="line"></div><div class="line">            rooms[room] = <span class="keyword">new</span> Room()</div><div class="line">            oRoom = rooms[room]</div><div class="line"></div><div class="line">        &#125;</div><div class="line">        oRoom.addUser(uuid)</div><div class="line"></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.type == <span class="string">'ques'</span>) &#123;</div><div class="line">        <span class="keyword">var</span> obj = &#123; <span class="attr">q</span>: data.msg, <span class="attr">a</span>: <span class="string">''</span> &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> (oRoom.addQues(obj)) &#123;</div><div class="line">            <span class="keyword">var</span> msg = &#123;</div><div class="line">                <span class="attr">type</span>: <span class="string">'ques'</span>,</div><div class="line">                <span class="attr">msg</span>: data.msg,</div><div class="line">                <span class="attr">index</span>: oRoom.getQuesLen()</div><div class="line">            &#125;</div><div class="line">            wss.roomNotify(msg, room)</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">var</span> msg = &#123;</div><div class="line">                <span class="attr">type</span>: <span class="string">'info'</span>,</div><div class="line">                <span class="attr">msg</span>: <span class="string">'超过最大提问数'</span></div><div class="line">            &#125;</div><div class="line">            wss.singleNotify(msg, uuid)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (data.type = <span class="string">'ans'</span>) &#123;</div><div class="line"></div><div class="line">        oRoom.addAns(data.index, data.msg)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>待更新……</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/websocket/" rel="tag"># websocket</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/13/socket-1/" rel="next" title="WebSocket的学习及认识">
+                <i class="fa fa-chevron-left"></i> WebSocket的学习及认识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Rain" />
+          <p class="site-author-name" itemprop="name">Rain</p>
+           
+              <p class="site-description motion-element" itemprop="description">javascript, js, html, css</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端"><span class="nav-number">1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端"><span class="nav-number">2.</span> <span class="nav-text">客户端</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Rain</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
