@@ -250,6 +250,192 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/05/17/array-methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Rain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="漫溯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/17/array-methods/" itemprop="url">
+                  JavaScript数组操作的一些方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-17T18:24:23+08:00">
+                2017-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/05/17/array-methods/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/17/array-methods/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>数组的操作方法有很多，根据特性总的来说可以划分为三类，也就是</p>
+<ul>
+<li>Mutator 改变原数组对象值的方法</li>
+<li>Accessor 不改变原数组对象带返回值的方法</li>
+<li>Iteration 数组遍历的方法</li>
+</ul>
+<h1 id="修改原数组方法"><a href="#修改原数组方法" class="headerlink" title="修改原数组方法"></a>修改原数组方法</h1><h2 id="添加删除-pop-push-shift-unshift"><a href="#添加删除-pop-push-shift-unshift" class="headerlink" title="添加删除 pop, push, shift, unshift"></a>添加删除 pop, push, shift, unshift</h2><p>可以通过一个图来解释<br><img src="http://omoxed4yh.bkt.clouddn.com/170517-array.png" alt="image"><br>这些操作都会修改数组的<code>length</code>值。对于类数组，可以使用<code>apply</code>调用</p>
+<h2 id="排序-reverse-sort"><a href="#排序-reverse-sort" class="headerlink" title="排序 reverse, sort"></a>排序 reverse, sort</h2><p><code>reverse</code>方法将数组前后位置颠倒，所以一种逆序字符串的方法可以写成<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> str = <span class="string">'hello'</span></div><div class="line">str.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>); <span class="comment">//'olleh'</span></div></pre></td></tr></table></figure></p>
+<p><code>sort()</code> 方法提供了可选的规则对数组进行排序，默认会把元素按照转换为的字符串的每个字符的Unicode位点进行排序。<br>比如，<code>1,10,21,2</code>默认排序的结果为<code>1,10,2,21</code>。<br><code>sort()</code> 方法可以接收一个回调函数<code>callback(a, b)</code>用作设置比较规则，它的返回值的几种对应情况：</p>
+<ul>
+<li>小于 0, a 会被排列到 b 之前;</li>
+<li>等于 0, a 和 b 的相对位置不变;</li>
+<li>大于 0, b 会被排列到 a 之前。</li>
+</ul>
+<p>对于数字的比较也可以简单的使二者相减来实现升序排列：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">compareNumbers</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> a - b;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而降序返回<code>b-a</code>即可。那么回到前面的数组，升序排列的函数使用ES6的话可以便捷的写成：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">10</span>,<span class="number">21</span>,<span class="number">2</span>].sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a-b);  <span class="comment">//[1,2,10,21]</span></div></pre></td></tr></table></figure></p>
+<h2 id="splice"><a href="#splice" class="headerlink" title="splice"></a>splice</h2><p><code>splice()</code>可以删除、添加数组元素<br><div class="note info"><p><em>array.splice(start[, deleteCount, item1, item2, …])</em></p>
+</div></p>
+<p>可接收3个参数</p>
+<ul>
+<li>start​ 指定修改的开始位置。<ul>
+<li>如果超出了数组的长度，则从数组末尾开始添加内容；</li>
+<li>如果是负值，则表示从数组末位开始的第几位（从1计数）。</li>
+</ul>
+</li>
+<li>deleteCount 表示要移除的数组元素的个数。<ul>
+<li>如果 deleteCount 是 0，则不移除元素。</li>
+<li>如果 deleteCount 大于start 之后的元素的总数，则从 start及后面的元素都将被删除。</li>
+<li>如果deleteCount被省略，则其相当于(arr.length - start)。</li>
+</ul>
+</li>
+<li>item1, item2, … 要添加进数组的元素,从start 位置开始。</li>
+</ul>
+<p><code>splice()</code>操作可以返回被删除元素的数组，如果没有删除则返回空数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">10</span>,<span class="number">21</span>,<span class="number">2</span>]</div><div class="line">arr.splice(<span class="number">2</span>, <span class="number">0</span>, <span class="number">32</span>) <span class="comment">// [1, 10, 32, 21, 2]</span></div><div class="line">arr.splice(<span class="number">-2</span>, <span class="number">0</span>, <span class="number">3</span>) <span class="comment">// [1, 10, 32, 3, 21, 2]</span></div><div class="line">arr.splice(<span class="number">3</span>, <span class="number">1</span>, <span class="number">43</span>) <span class="comment">// [1, 10, 32, 43, 21, 2]</span></div></pre></td></tr></table></figure></p>
+<p>所以替换操作也就相当于是先删掉部分元素后再插入相同数量的元素</p>
+<h2 id="填充-fill-copyWithin"><a href="#填充-fill-copyWithin" class="headerlink" title="填充 fill, copyWithin"></a>填充 fill, copyWithin</h2><p><code>fill</code>方法使用给定值，填充一个数组。<br><div class="note info"><p><em>arr.fill(value, start, end)</em></p>
+</div></p>
+<ul>
+<li>value 填充值</li>
+<li>start 填充起始位置</li>
+<li>end 填充结束位置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].fill(<span class="number">4</span>, <span class="number">1</span>, <span class="number">2</span>)      <span class="comment">// [1, 4, 3]</span></div><div class="line"><span class="built_in">Array</span>(<span class="number">3</span>).fill(<span class="number">4</span>);            <span class="comment">// [4, 4, 4]</span></div><div class="line">[].fill.call(&#123;<span class="attr">length</span>: <span class="number">3</span>&#125;, <span class="number">4</span>) <span class="comment">// &#123;0: 4, 1: 4, 2: 4, length: 3&#125;</span></div></pre></td></tr></table></figure>
+<div class="note info"><p><em>arr.copyWithin(target, start, end)</em></p>
+</div>
+<p>数组实例的<code>copyWithin</code>方法，在当前数组内部，将指定位置的成员复制到其他位置（会覆盖原有成员），然后返回当前数组。<br>它接受三个参数。</p>
+<ul>
+<li>target（必需）：从该位置开始替换数据。</li>
+<li>start（可选）：从该位置开始读取数据，默认为0。如果为负值，表示倒数。</li>
+<li>end（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示倒数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>].copyWithin(<span class="number">-2</span>);      <span class="comment">// [1, 2, 3, 1, 2]</span></div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>].copyWithin(<span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>); <span class="comment">// [4, 2, 3, 4, 5]</span></div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/17/array-methods/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://felxy.github.io/2017/05/16/curring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1138,7 +1324,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1160,7 +1346,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
