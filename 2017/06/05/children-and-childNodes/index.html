@@ -87,43 +87,21 @@
 
 
 
-<meta name="description" content="起因是在群里有人问了一道题:实现如下功能：var a = add(2)(3)(4);  // 9 
-
-
-后来有人给出了三个字答案----“柯里化”
-
-维基百科中解释为:
-在计算机科学中，柯里化（英语：Currying）是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
-
-上述问题的一种实现方式如下:
-12345678910">
+<meta name="description" content="nodeType在读Zepto v1.2.0的源码时，有处函数如下，用来获取子元素
+12345function children(element) &amp;#123;  return &apos;children&apos; in element ?    slice.call(element.children) :    $.map(element.childNodes, function(node)&amp;#123; if">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个 JavaScript 柯里化问题">
-<meta property="og:url" content="https://felxy.github.io/blog/2017/05/16/curring/index.html">
+<meta property="og:title" content="从children与childNodes说说nodeType">
+<meta property="og:url" content="https://felxy.github.io/blog/2017/06/05/children-and-childNodes/index.html">
 <meta property="og:site_name" content="漫溯">
-<meta property="og:description" content="起因是在群里有人问了一道题:实现如下功能：var a = add(2)(3)(4);  // 9 
-
-
-后来有人给出了三个字答案----“柯里化”
-
-维基百科中解释为:
-在计算机科学中，柯里化（英语：Currying）是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
-
-上述问题的一种实现方式如下:
-12345678910">
-<meta property="og:updated_time" content="2017-06-05T11:22:50.000Z">
+<meta property="og:description" content="nodeType在读Zepto v1.2.0的源码时，有处函数如下，用来获取子元素
+12345function children(element) &amp;#123;  return &apos;children&apos; in element ?    slice.call(element.children) :    $.map(element.childNodes, function(node)&amp;#123; if">
+<meta property="og:image" content="http://omoxed4yh.bkt.clouddn.com/170605-caption.jpg">
+<meta property="og:updated_time" content="2017-06-05T11:22:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个 JavaScript 柯里化问题">
-<meta name="twitter:description" content="起因是在群里有人问了一道题:实现如下功能：var a = add(2)(3)(4);  // 9 
-
-
-后来有人给出了三个字答案----“柯里化”
-
-维基百科中解释为:
-在计算机科学中，柯里化（英语：Currying）是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
-
-上述问题的一种实现方式如下:
-12345678910">
+<meta name="twitter:title" content="从children与childNodes说说nodeType">
+<meta name="twitter:description" content="nodeType在读Zepto v1.2.0的源码时，有处函数如下，用来获取子元素
+12345function children(element) &amp;#123;  return &apos;children&apos; in element ?    slice.call(element.children) :    $.map(element.childNodes, function(node)&amp;#123; if">
+<meta name="twitter:image" content="http://omoxed4yh.bkt.clouddn.com/170605-caption.jpg">
 
 
 
@@ -151,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://felxy.github.io/blog/2017/05/16/curring/"/>
+  <link rel="canonical" href="https://felxy.github.io/blog/2017/06/05/children-and-childNodes/"/>
 
 
 
 
 
-  <title> 一个 JavaScript 柯里化问题 | 漫溯 </title>
+  <title> 从children与childNodes说说nodeType | 漫溯 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +254,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/blog/blog/2017/05/16/curring/">
+    <link itemprop="mainEntityOfPage" href="https://felxy.github.io/blog/blog/2017/06/05/children-and-childNodes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Rain">
@@ -297,7 +275,7 @@
             
             
               
-                一个 JavaScript 柯里化问题
+                从children与childNodes说说nodeType
               
             
           </h1>
@@ -312,8 +290,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T11:16:47+08:00">
-                2017-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-05T14:21:20+08:00">
+                2017-06-05
               </time>
             
 
@@ -353,21 +331,69 @@
       
 
       
-        <p>起因是在群里有人问了一道题:<br><div class="note info"><p>实现如下功能：<code>var a = add(2)(3)(4);  // 9</code> </p>
-</div>
-
-后来有人给出了三个字答案----“柯里化”
-
-维基百科中解释为:
-<div class="note info"><p>在计算机科学中，柯里化（英语：Currying）是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。</p>
+        <p><img src="http://omoxed4yh.bkt.clouddn.com/170605-caption.jpg" alt="image"></p>
+<h1 id="nodeType"><a href="#nodeType" class="headerlink" title="nodeType"></a>nodeType</h1><p>在读<code>Zepto v1.2.0</code>的源码时，有处函数如下，用来获取子元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">children</span>(<span class="params">element</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'children'</span> <span class="keyword">in</span> element ?</div><div class="line">    slice.call(element.children) :</div><div class="line">    $.map(element.childNodes, <span class="function"><span class="keyword">function</span>(<span class="params">node</span>)</span>&#123; <span class="keyword">if</span> (node.nodeType == <span class="number">1</span>) <span class="keyword">return</span> node &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>里面涉及到了<code>children</code>和<code>childNodes</code>两个属性，函数中首先判断<code>children</code>属性是否存在，否则从<code>childNodes</code>属性中获取所需元素。<br>对于这些属性首先看下在MDN中的解释：<br><div class="note info"><p>ParentNode.children 是一个只读属性，返回 一个Node的子elements 的HTMLCollection</p>
+<p>HTMLCollection 接口表示一个包含了元素（元素顺序为文档流中的顺序）的通用集合（generic collection）。</p>
+<p>ChildNodes 接口包含特定于Node 对象的方法，这些对象可以有一个父对象。</p>
 </div></p>
-<p>上述问题的一种实现方式如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> add = <span class="function"><span class="params">x</span> =&gt;</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> sum = x</div><div class="line">    <span class="keyword">let</span> tem = <span class="function"><span class="params">y</span> =&gt;</span> &#123;</div><div class="line">        sum += y</div><div class="line">        <span class="keyword">return</span> tem</div><div class="line">    &#125;</div><div class="line">    tem.toString = tem.valueOf = <span class="function"><span class="params">()</span> =&gt;</span> sum</div><div class="line"></div><div class="line">    <span class="keyword">return</span> tem</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么为什么需要复写<code>toString</code>和<code>valueOf</code>呢？</p>
-<p>在权威指南中是这样解释两种方法的：</p>
-<div class="note info"><p><code>toString()</code>方法的作用是返回一个可以表示这个对象的字符串。在希望使用字符串的地方用到对象的话，JavaScript会自动调用这个方法，如果没实现这个方法，类会默认从<code>Object.prototype</code>中继承<code>toString()</code>方法，这个方法的结果是<code>[object object]</code>。<br><code>valueOf()</code>用来将对象转换为原始值。比如，当数学运算符（除了“+”运算符）和关系运算符作用域数字文本表示的对象时，会自动调用<code>valueOf()</code>方法。</p>
-</div>
-<p>未定义的<code>toString</code>或<code>valueOf</code>方法，返回的是tem声明的函数，而我们需要把对象转换成原始类型的值（数值、字符串和布尔值），因此需要重写两个方法使它返回需要的值。<br><a id="more"></a></p>
+<p>节点有多种类型，比如元素、文本和注释，区分这些节点可以通过检查<code>nodeType</code> 属性。共计有12种节点类型，其中比较有代表性的如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>描述</th>
+<th style="text-align:center">值</th>
+<th>常量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Element</td>
+<td>一个元素节点, 如<code>&lt;p&gt;</code>和<code>&lt;div&gt;</code></td>
+<td style="text-align:center">1</td>
+<td>ELEMENT_NODE</td>
+</tr>
+<tr>
+<td>Attr</td>
+<td>属性</td>
+<td style="text-align:center">2</td>
+<td>ATTRIBUTE_NODE</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>Element或者Attr中实际的文字</td>
+<td style="text-align:center">3</td>
+<td>TEXT_NODE</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td>注释</td>
+<td style="text-align:center">8</td>
+<td>COMMENT_NODE</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>代表整个文档（DOM 树的根节点）</td>
+<td style="text-align:center">9</td>
+<td>DOCUMENT_NODE</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em><a href="http://www.w3school.com.cn/jsref/prop_node_nodetype.asp" target="_blank" rel="external">HTML DOM nodeType 属性</a></em></p>
+</blockquote>
+<p>也就是说，<strong><code>childNodes</code>包含了<code>children</code>的内容。</strong><br>回到<code>zepto</code>中，<code>children</code>函数获取了父元素中所有子元素，并以数组的形式返回；而<code>childNodes</code>则筛选了<code>nodeType == 1</code>的节点，即 <code>Element</code>类型的节点。</p>
+<p>除此之外，<code>zepto</code>在其他地方同样用到了<code>nodeType</code>相关的属性，在上面的表格中有判断节点类型的常量来代替数字值。所以zepto在判断是否为<code>document</code>函数中写成了如下形式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isDocument</span>(<span class="params">obj</span>)   </span>&#123; <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj.nodeType == obj.DOCUMENT_NODE &#125;</div></pre></td></tr></table></figure>
+<p>其中<code>DOCUMENT_NODE</code>的值为9</p>
+<h1 id="此children非彼children"><a href="#此children非彼children" class="headerlink" title="此children非彼children"></a>此children非彼children</h1><p>在<code>zepto</code>源码中继续查找可以发现<code>$.fn</code>上同样定义了一个<code>children</code>函数，这里的函数实际上就是平常所使用的选择器了，能够把获取到的数组转换为<code>zepto</code>类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$.fn = &#123;</div><div class="line">	<span class="attr">children</span>: <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">      <span class="keyword">return</span> filtered(<span class="keyword">this</span>.map(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="keyword">return</span> children(<span class="keyword">this</span>) &#125;), selector)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType" target="_blank" rel="external">nodeType</a></p>
+</blockquote>
 
       
     </div>
@@ -404,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/04/14/socket-2/" rel="next" title="WebSocket的应用实例">
-                <i class="fa fa-chevron-left"></i> WebSocket的应用实例
+              <a href="/blog/2017/06/01/DFS-BFS/" rel="next" title="深度优先与广度优先方法对DOM树的遍历">
+                <i class="fa fa-chevron-left"></i> 深度优先与广度优先方法对DOM树的遍历
               </a>
             
           </div>
@@ -413,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/05/20/array-methods/" rel="prev" title="JavaScript数组操作的一些方法">
-                JavaScript数组操作的一些方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -526,6 +557,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nodeType"><span class="nav-number">1.</span> <span class="nav-text">nodeType</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#此children非彼children"><span class="nav-number">2.</span> <span class="nav-text">此children非彼children</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
